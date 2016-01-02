@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>File Upload Example</title>
+    </head>
+
+    <body>
+       
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.non_field_errors }}</p>
+
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+
+            <p>
+                {{ form.docfile.errors }}
+
+                {{ form.docfile }}
+            </p>
+
+            <p><input type="submit" value="Upload"/></p>
+        </form>
+
+        <!-- List of uploaded documents -->
+        <!-- <input type="submit" value="Decompile {{ document.docfile.name }}" /> -->
+        <h3>List of files</h3>
+        {% if documents %}
+            <ul>
+                {% for document in documents %}
+                    <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }} </a>
+                        <p>{{ temp_fun_result }}</p> 
+                        {% for f in fileinfos  %}
+                            {% if f.file_name == document.docfile.url %}
+                                <p>{{ f.permissions_info }}</p>
+                            {% endif%}
+                        {% endfor %}
+                         
+                    </li>
+                    <p>{{ document.docfile.size }} {{ document.docfile.content_type }} KBs</p>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+    </body>
+
+</html>
