@@ -28,6 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#django_rq
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    }
+}
+
 
 # Application definition
 
@@ -38,7 +47,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myproject.myapp'
+    'myproject.myapp',
+    'django_rq',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,6 +88,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+
+
+
 
 
 # Database
