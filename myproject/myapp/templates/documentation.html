@@ -1,0 +1,102 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+        <title>README</title>
+	</head>
+
+
+	<body>
+		<a href="/myapp/list/documents/">APK Info</a>
+		<p></p>
+		<a href="/myapp/list/">Upload a new file</a>
+		<h3>Purpose of Project</h3>
+
+			<p>
+				It first gives an upload page where user can uplaod APK files. Once user uplaods an APK file it decompiles and can read different information related to APK file, for now it is reading permission an APK file requires. Another page is dedicated for listing out APK files uploaded and permission required and its size in KBs.
+
+			</p>
+		
+		<h3>Installations required</h3>
+
+			<p>
+				This project is build on python 2.7 and Django 1.8.5 . Used <a href="https://github.com/androguard/androguard">Androguard</a> to decompile the APK file uploaded by the user. Used sqlite3 database to store information. Utilizing a queueing system (<a href="https://github.com/ui/django-rq">Django-rq</a>) to put long processing method in a queue for multi-user environment. So one need to install these above to install to run this application :). Once installation is done one need run following commands:
+			</p>
+		<h4>Redis server can be started using</h4>
+
+			<p>
+				$ redis-server 
+			</p>
+			<p>Remember to start redis server from src folder of redis directory. In my case it was in /Users/Desk23/Downloads/redis-3.0.6/src/ </p>
+
+		<h4>To start a worker</h4>
+			<p>
+			$ python manage.py rqworker default 
+			</p>
+		<h4>Now we need to create database and run server for our website running on localhost</h4>
+			<p>
+				$ python manage.py migrate
+			</p>
+			<p>
+				$ python manage.py runserver
+			</p>
+			<p>
+				Above three commands should run from myproject (root directory) where manage.py file resides.
+			</p>
+			<p>
+				We can access <a href="http://127.0.0.1:8000/">upload page</a> on browser.
+			</p>
+
+		<h3>Accessing Website:</h3>
+
+			<p>
+				On /myapp/list page we can upload APK file. On same page there is a link to find <a href="http://127.0.0.1:8000/myapp/list/documents/">APK Info</a> which will listout APK uploaded and information related to it. APK Info page contains a link (Upload a new file) to go back to upload page.
+
+			</p>
+		
+
+		<h3>Application</h3>
+
+		<h4>/myprojec/myapp</h4>
+
+			<p>This application is responsible for upload page and information page. It contains forms.py to create upload form, view.py to tell what to do when a request arrives, urls.py reads the url requested by user and matches it with pattern defined and dispatches to corresponding view or method. Further models.py creates two model or tables namely Document (column: docfile) and FileInfo (column: file_name,permission_info ).</p>
+
+		<h4>/myanotherapp</h4>
+
+			<p>It has no work right now.</p>
+
+			<p>In settings.py, myproject/myapp and django_rq are included in INCLUDED_APPS setting.</p>
+
+		<h4>Other Information</h4>
+
+			<p>Files uploaded will be saved in media/documents/ directory in myproject directory. </p>
+
+		<h3>Sources I used to build this project</h3>
+
+			<p>
+			<a href="https://github.com/axelpale/minimal-django-file-upload-example">minimal django file upload example</a>
+			</p>
+
+			<p>"The goal with minimal-django-file-upload-example is to demonstrate and teach how file uploading is done with Django."</p>
+
+			<p>Used code of this project to make upload form.</p>
+
+			<p><a href="http://blog.k3170makan.com/2014/11/automated-dex-decompilation-using.html">Automated DEX Decompilation using Androguard 
+			</a>
+			</p>
+
+			<p>"This post is about Androguard and how to write a simple python script that dumps decompiled dalvik bytecode from an Android APK."
+			</p> 
+
+			<p><a href="http://blog.ashnab.com/task-queues-and-python-rq/">Task Queues and Python RQ</a></p>
+
+			<p>"In this post, we will quickly go through an example of processing some task in the background using python RQ. Django-RQ is a simple app that allows you to configure your queues in django's settings.py and easily use them in your project."
+			</p>
+
+			<p>Many more articles and code i read to understand django, androguard and django-rq.</p>
+
+
+	</body>
+
+</html>
+

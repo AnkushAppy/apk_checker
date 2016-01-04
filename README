@@ -1,0 +1,64 @@
+Purpose of Project:
+
+It first gives an upload page where user can uplaod APK files. Once user uplaods an APK file it decompiles and can read different information related to APK file, for now it is reading permission an APK file requires. Another page is dedicated for listing out APK files uploaded and permission required and its size in KBs.
+
+Installations required:
+
+This project is build on python 2.7 and Django 1.8.5 . Used Androguard (https://github.com/androguard/androguard) to decompile the APK file uploaded by the user. Used sqlite3 database to store information. Utilizing a queueing system ( Django-rq https://github.com/ui/django-rq) to put long processing in a queue for multi-user environment. So one need to install these above to install to run this application :).
+
+Redis server can be started using:
+
+$ redis-server 
+
+To start a worker:
+
+$ python manage.py rqworker default 
+
+Now we need to create database and run server for our website running on localhost:
+
+$ python manage.py migrate
+$ python manage.py runserver
+
+Above two command should run from myproject (root directory) where manage.py fiel resides.
+
+We can access upload page by running http://127.0.0.1:8000/ on browser.
+
+Accessing Website:
+
+on /myapp/list page we can upload APK file. On same page there is a link to find APK Info ( http://127.0.0.1:8000/myapp/list/documents/ ) which will listout APK uploaded and information related to it. APK Info page contains a link (Upload a new file) to go back to upload page.
+
+
+Application:
+
+/myprojec/myapp
+
+This application is responsible for upload page and information page. It contains forms.py to create upload form, view.py to tell what to do when a request arrives, urls.py reads the url requested by user and matches it with pattern defined and dispatches to corresponding view or method. Further models.py creates two model or tables namely Document (column: docfile) and FileInfo (column: file_name,permission_info ).
+
+/myanotherapp
+
+It has no work right now.
+
+In settings.py, myproject/myapp and django_rq are included in INCLUDED_APPS setting.
+
+Other Information
+
+Files uploaded will be saved in media/documents/ folder. 
+
+Sources I used to build this project:
+
+https://github.com/axelpale/minimal-django-file-upload-example
+
+The goal with minimal-django-file-upload-example is to demonstrate and teach how file uploading is done with Django. 
+
+Used code of this project to make upload form.
+
+http://blog.k3170makan.com/2014/11/automated-dex-decompilation-using.html
+
+This post is about Androguard and how to write a simple python script that dumps decompiled dalvik bytecode from an Android APK. 
+
+http://blog.ashnab.com/task-queues-and-python-rq/
+
+In this post, we will quickly go through an example of processing some task in the background using python RQ. Django-RQ is a simple app that allows you to configure your queues in django's settings.py and easily use them in your project.
+
+many more articles and code i read to understand django, androguard and django-rq.
+

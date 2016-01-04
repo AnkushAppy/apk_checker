@@ -60,4 +60,6 @@ def list3(request):
         context_instance=RequestContext(request))
 
 
+def documents(request):
+    return render_to_response('documentation.html',context_instance=RequestContext(request))
 

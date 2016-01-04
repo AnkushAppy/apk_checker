@@ -9,6 +9,7 @@
        
         <h3>List of files</h3>
         <a href="/myapp/list/">Upload a new file</a>
+        <a href="/myapp/list/readme/">README</a>
         {% if documents %}
             <ul>
                 {% for document in documents %}
@@ -24,7 +25,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No documents.</p>
+            <p>No File.</p>
         {% endif %}
     </body>
 
