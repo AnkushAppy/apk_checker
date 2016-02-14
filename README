@@ -19,7 +19,7 @@ Now we need to create database and run server for our website running on localho
 $ python manage.py migrate
 $ python manage.py runserver
 
-Above two command should run from myproject (root directory) where manage.py fiel resides.
+Above two command should run from myproject (root directory) where manage.py file resides.
 
 We can access upload page by running http://127.0.0.1:8000/ on browser.
 
@@ -30,7 +30,7 @@ on /myapp/list page we can upload APK file. On same page there is a link to find
 
 Application:
 
-/myprojec/myapp
+/myproject/myapp
 
 This application is responsible for upload page and information page. It contains forms.py to create upload form, view.py to tell what to do when a request arrives, urls.py reads the url requested by user and matches it with pattern defined and dispatches to corresponding view or method. Further models.py creates two model or tables namely Document (column: docfile) and FileInfo (column: file_name,permission_info ).
 
